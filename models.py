@@ -37,11 +37,3 @@ class Order:
         self.customer = customer
         self.amount = amount
         self.status = status
-
-
-class SalesAnalyser:
-    def __init__(self, orchestrates, loading, cleaning, analysis):
-        self.orchestrates = orchestrates
-        self.loading = loading
-        self.cleaning = cleaning
-        self.analysis = analysis
