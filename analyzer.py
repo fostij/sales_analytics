@@ -1,5 +1,5 @@
 import pandas as pd
-# import numpy as np
+import numpy as np
 from utils import parse_date, to_float
 import matplotlib.pyplot as plt
 
@@ -43,6 +43,12 @@ class SalesAnalyser:
             .head(10)
         )
         results["status_distribution"] = df["status"].value_counts(normalize=True)
+
+        with open("output/summary_report.txt", "w") as f:
+            f.write(f"Total revenue: {results['total_revenue']} \n")
+            f.write(f"AOV: {results['aov']}\n")
+            f.write("Top customers:\n")
+            f.write(results["top_customers"].to_string())
 
         return results
     

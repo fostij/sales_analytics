@@ -1,3 +1,4 @@
+# O(n2)
 def bubble_sort(arr):
     arr = arr.copy()
     n = len(arr)
@@ -7,6 +8,7 @@ def bubble_sort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 
+# O(n)
 def linear_search(arr, target):
     for x in arr:
         if x == target:
