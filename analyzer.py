@@ -1,6 +1,7 @@
 import pandas as pd
-import numpy as np
+# import numpy as np
 from utils import parse_date, to_float
+import matplotlib.pyplot as plt
 
 
 
@@ -44,3 +45,33 @@ class SalesAnalyser:
         results["status_distribution"] = df["status"].value_counts(normalize=True)
 
         return results
+    
+    def create_visualizations(self):
+        df = self.df
+
+        # 1. Revenue by category
+        df.groupby("product_category")["order_amount"].sum().plot(
+            kind = "bar", figsize=(8, 5), title="Revenue by Category"
+        )
+        plt.ylabel("Revenue")
+        plt.tight_layout()
+        plt.savefig("output/figures/revenue_by_category.png")
+        plt.clf()
+
+        # 2. Monthly trend
+        df.set_index("order_date").resample("M")["order_amount"].sum().plot(
+            figsize=(8, 5), title="Monthly Revenue Trend"
+        )
+        plt.ylabel("Revenue")
+        plt.tight_layout()
+        plt.savefig("output/figures/monthly_trend.png")
+        plt.clf()
+
+        # 3. Distribution
+        df["order_amount"].plot(
+            kind="hirst", bins=20, figsize=(8, 5), title="Order Value Distribution"
+        )
+        plt.xlabel("Order Amount")
+        plt.tight_layout()
+        plt.savefig("output/figures/order_distribution.png")
+        plt.clf()
