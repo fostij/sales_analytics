@@ -1,4 +1,25 @@
+"""
+models.py
+
+Defines object-oriented data models used in the project.
+These classes represent core business entities and enforce
+basic validation rules.
+
+This module does NOT depend on pandas or numpy.
+"""
+
 class Entity:
+    """
+    Base class for all entities in the system.
+
+    Provides:
+    - unique identifier
+    - shared validation logic
+    - common string representation
+
+    Demonstrates inheritance as required by the project.
+    """
+
     def __init__(self, id):
         if not id:
             raise ValueError("ID cannot be empty")
@@ -9,6 +30,9 @@ class Entity:
     
 
 class Product(Entity):
+    """
+    Represents a product sold by the company
+    """
     def __init__(self, id, name, category, base_price):
         super().__init__(id)
         if base_price < 0:
@@ -19,6 +43,9 @@ class Product(Entity):
 
 
 class Customer(Entity):
+    """
+    Represents a customer who places orders.
+    """
     def __init__(self, id, name, email, lifetime_value=0.0):
         super().__init__(id)
         if "@" not in email:
@@ -29,6 +56,9 @@ class Customer(Entity):
 
 
 class Order:
+    """
+    Represents a single customer order.
+    """
     def __init__(self, date, items, customer, amount, status):
         if amount < 0:
             raise ValueError("Emount must be >= 0")

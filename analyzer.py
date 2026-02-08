@@ -1,19 +1,43 @@
 import pandas as pd
-# import numpy as np
 from utils import parse_date, to_float
 import matplotlib.pyplot as plt
+
+"""
+analyzer.py
+
+Contains the SalesAnalyzer class, which is responsible for:
+- loading raw data
+- cleaning and validating datasets
+- performing analytical computations
+- generating reports and visualizations
+
+This module encapsulates all data-related logic.
+"""
 
 
 
 class SalesAnalyser:
+    """
+    Central class responsible for sales data analysis.
+    """
     def __init__(self, path="data/sales_data.csv"):
         self.path = path
         self.df = None
 
     def load_data(self):
+        """
+        Load raw sales data from CSV into a DataFrame.
+        """
         self.df = pd.read_csv(self.path)
 
     def clean_data(self):
+        """
+        Clean and preprocess the dataset
+        - remove duplicates
+        - standardize data types
+        - handle missing values
+        - export cleaned dataset
+        """
         df = self.df.copy()
 
         df = df.drop_duplicates()
@@ -21,12 +45,16 @@ class SalesAnalyser:
         df["order_amount"] = to_float(df["order_amount"])
         df["status"] = df["status"].fillna("unknown")
 
+        # Remove invalid rows after conversion
         df = df.dropna(subset=["order_date", "order_amount"])
 
         self.df = df
         df.to_csv("data/sales_clean.csv", index=False)
 
     def analytics(self):
+        """
+       Compute key business metrics using pandas aggregation.
+        """
         df = self.df
 
         results = {}
@@ -47,6 +75,9 @@ class SalesAnalyser:
         return results
     
     def create_visualizations(self):
+        """
+        Create and export required visualizations using matplotlib.
+        """
         df = self.df
 
         # 1. Revenue by category
@@ -58,7 +89,7 @@ class SalesAnalyser:
         plt.savefig("output/figures/revenue_by_category.png")
         plt.clf()
 
-        # 2. Monthly trend
+        # 2. Monthly revenue trend
         df.set_index("order_date").resample("ME")["order_amount"].sum().plot(
             figsize=(8, 5), title="Monthly Revenue Trend"
         )
@@ -67,7 +98,7 @@ class SalesAnalyser:
         plt.savefig("output/figures/monthly_trend.png")
         plt.clf()
 
-        # 3. Distribution
+        # 3. Order value distribution
         df["order_amount"].plot(
             kind="hist", bins=20, figsize=(8, 5), title="Order Value Distribution"
         )

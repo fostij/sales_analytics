@@ -1,4 +1,7 @@
 from analyzer import SalesAnalyser
+import timeit
+import random
+from algorithms import bubble_sort
 
 """
 main.py
@@ -38,6 +41,29 @@ def main():
 
     # Generete summary report
     analyzer.generate_report(results)
+
+
+# -------------------------------------------------------
+# Temporary algorithm performance test (educational only)
+# This block is used to compare a custom sorting algorithm
+# with Python's built-in sorted() function.
+# It is not part of the core application logic.
+
+# Generate sample data for sorting
+sample_data = [random.randint(1, 10000) for _ in range(1000)]
+# Measure executio time of custom bubble sort
+bubble_time = timeit.timeit(
+    lambda: bubble_sort(sample_data), number=1
+)
+# Measure execution time of Python built-in sort
+builtin_time = timeit.timeit(
+    lambda: sorted(sample_data), number=1
+)
+
+# Output comparison results
+print("\nAlgorithm Performance Comparison:")
+print(f"Custom Bubble Sort: {bubble_time: .4f}")
+print(f"Built-in sorted(): {builtin_time: .4f}")
     
 
 
