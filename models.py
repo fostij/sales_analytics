@@ -9,7 +9,7 @@ class Entity:
     
 
 class Product(Entity):
-    def __init__(self, name, category, base_price):
+    def __init__(self, id, name, category, base_price):
         super().__init__(id)
         if base_price < 0:
             raise ValueError("Price must be positive")
@@ -19,7 +19,7 @@ class Product(Entity):
 
 
 class Customer(Entity):
-    def __init__(self, name, email, lifetime_value=0.0):
+    def __init__(self, id, name, email, lifetime_value=0.0):
         super().__init__(id)
         if "@" not in email:
             raise ValueError("Invalid email")

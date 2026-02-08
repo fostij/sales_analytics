@@ -1,5 +1,9 @@
+Sales Analytics Summary Report
+----------------------------------------
 Total revenue: 130872.44 
-AOV: 654.3622
+aov: 654.3622
+Unique Customers: 49
+
 Top customers:
 customer_id
 CUST6     6942.80
