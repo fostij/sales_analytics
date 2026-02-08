@@ -61,6 +61,20 @@ python main.py
 - Mothly revenue trends
 - Order value distribution
 
+## Algorithm Performance Comparison:
+
+Custom Bubble Sort:
+- Time Complexity: O(n^2)
+- Execution time significantly slower for large datasets
+
+Built-in sorted():
+- Time Complexity: O(n log n)
+- Implemented in optimized C code (Timsort)
+
+Conclusion:
+Built-in sorting functions are more efficient and should be used in production,
+while custom algorithms are useful for learning and analysis.
+
 ## Technologies Used
 - Python
 - Pandas
